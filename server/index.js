@@ -2,8 +2,13 @@ const express=require("express")
 const mongoose=require("mongoose")
 
 const app=express() 
-mongoose.connect()
+
 const port=3000||process.env.PORT
+
+//Import routes
+
+const authRoute= require('./routes/auth'); 
+
 
 
 
