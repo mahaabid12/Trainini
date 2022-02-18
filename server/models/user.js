@@ -67,7 +67,7 @@ userSchema.methods.getResetPasswordToken=function(){
     this.resetPasswordExpire=Date.now()+10*(60*100); 
     return resetToken
 
-}
+}  
 
 
 
