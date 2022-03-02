@@ -1,13 +1,16 @@
 const nodemailer=require('nodemailer'); 
 
 const sendEmail=(options)=>{
-    const transporter= nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE, 
-        auth:{
-            user:process.env.EMAIL_USERNAME, 
-            pass:process.env.EMAIL_PASSWORD, 
+   
+
+    const transporter = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "b2a9ebd5ab7be4",
+          pass: "96f91040994eda"
         }
-    })
+      });
 
     const mailOptions={
         from: process.env.EMAIL_FROM, 
