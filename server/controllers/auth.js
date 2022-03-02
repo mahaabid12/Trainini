@@ -58,7 +58,7 @@ exports.login= async(req,res,next)=>{
 
         } 
 
-
+        //getSignedToken
         sendToken(user,200,res) 
         
 

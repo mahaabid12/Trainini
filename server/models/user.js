@@ -33,6 +33,10 @@ const userSchema=new mongoose.Schema({
         select:false
 
     },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date 
 
@@ -58,7 +62,7 @@ userSchema.methods.verify= async function (password){
 
 
 userSchema.methods.getSignedToken= function(){
-    return jwt.sign({id:this._id}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_EXPIRE})
+    return jwt.sign({id:this._id, isAdmin:this.isADMIN}, process.env.JWT_SECRET, { expiresIn:process.env.JWT_EXPIRE})
 }
 
 userSchema.methods.getResetPasswordToken=function(){
@@ -66,7 +70,6 @@ userSchema.methods.getResetPasswordToken=function(){
     this.resetPasswordToken=crypto.createHash("sha256").update(resetToken).digest("hex")
     this.resetPasswordExpire=Date.now()+10*(60*100); 
     return resetToken
-
 }  
 
 

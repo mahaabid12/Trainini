@@ -2,7 +2,7 @@ const jwt=require('jsonwebtoken')
 const User= require("../models/user")
 
 
-exports.protect=async(req,res,next)=>{
+const verifyToken=async(req,res,next)=>{
     let token; 
 
     if(req.headers.authorization && 
@@ -42,3 +42,39 @@ exports.protect=async(req,res,next)=>{
 
     
 }
+
+const verifyTokenAndAuthorization=(req,res,next)=>{
+    verifyToken(req,res,()=>{
+        if(req.user.id===req.params.id  || req.user.isAdmin){
+            next(); 
+        }else{
+            res.status(403).json({
+                success:false, 
+                error:"you're not allowed to do that "
+            })
+        }
+    })
+}
+
+const verifyTokenAndAdmin=(req,res,next)=>{
+    verifTojen(req,res,()=>{
+        if(req.user.isAdmin){
+            next()
+        }else{
+            res.status(403).json({
+                success:false, 
+                error:"you're not allowed to do that "
+
+            })
+        }
+    })
+}
+
+
+module.exports={
+    verifyToken, verifyTokenAndAdmin, verifyTokenAndAuthorization
+}
+
+
+
+
